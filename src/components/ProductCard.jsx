@@ -5,12 +5,11 @@ function ProductCard({ nombre, precio, imagen }) {
                 <img src={imagen} className="card-img-top" alt={nombre} />
                 <div className="card-body">
                     <h5 className="card-title">{nombre}</h5>
-                    <p className="card-text">${precio}</p>
+                    <p className="card-text">${precio_venta}</p>
                     <button className="btn btn-primary w-100">Agregar al carrito</button>
                 </div>
             </div>
         </div>
     );
 }
-
 export default ProductCard;
