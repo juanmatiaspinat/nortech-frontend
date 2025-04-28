@@ -7,7 +7,7 @@ function Catalogo() {
     console.log("🚀 ~ Catalogo ~ dataproductos:", dataproductos) //muestra el json de datos por consola
     useEffect(() => {
         mostrarProductos(); // Carga los productos al montar el componente
-    }, []);
+    }, [mostrarProductos]);
 
     return (
         <div>

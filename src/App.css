@@ -1,14 +1,14 @@
 html,
 body,
 #root {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f9f9f9;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    /* EL SCROLL SOLO VA A AFECTAR AL MAIN (PARTE MEDIA) */
+    overflow: hidden; /* EL SCROLL SOLO VA A AFECTAR AL MAIN (PARTE MEDIA) */
 }
-
 
 .app-fixed-layout {
     display: flex;
@@ -16,14 +16,18 @@ body,
     height: 100vh;
 }
 
-
 .main-scroll-area {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
-    background-color: #f9f9f9;
+    background-image: url('./assets/fondoCelulares.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: lighten;
 }
-
 
 /* ESTILOS FIJOS PARA NAVBAR Y FOOTER */
 nav {
@@ -31,7 +35,6 @@ nav {
     top: 0;
     z-index: 1000;
 }
-
 
 footer {
     position: sticky;

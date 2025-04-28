@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
-  const { signInWithEmail, error } = useAuthStore();
+  const { signInWithEmail } = useAuthStore();
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(null);
 

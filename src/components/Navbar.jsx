@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/AuthStore';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logoNorTech-navbar.png';
+
 function Navbar() {
     const { isAuthenticated, signout, datauserAuth } = useAuthStore();
     console.log("🚀 ~ Navbar ~ datauserAuth:", datauserAuth)
@@ -13,7 +15,9 @@ function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
-                <Link className="navbar-brand" to="/">NorTech</Link>
+                <Link className="navbar-brand" to="/">
+                    <img src={logo} alt="Logo de NorTech" width="200"/>
+                </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span className="navbar-toggler-icon"></span>
                 </button>

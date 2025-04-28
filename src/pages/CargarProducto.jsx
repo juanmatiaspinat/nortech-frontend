@@ -43,7 +43,7 @@ function CargarProducto() {
   };
 
   return (
-    <div className="col-md-6 mx-auto">
+    <div className="col-md-4 mx-auto">
       <h2>Cargar nuevo producto</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">

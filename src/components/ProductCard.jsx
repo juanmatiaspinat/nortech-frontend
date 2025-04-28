@@ -1,4 +1,4 @@
-function ProductCard({ nombre, precio, imagen }) {
+function ProductCard({ nombre, precio_venta, imagen }) {
     return (
         <div className="col-md-2 mb-2">
             <div className="card h-100">
