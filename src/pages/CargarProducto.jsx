@@ -1,21 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useProductosStore } from "../store/ProductStore"; // Ajusta el path
 
 function CargarProducto() {
-  const { crearProducto } = useProductosStore();
-
+  const { crearProducto, ObtenerCategorias, ObtenerMarcas } = useProductosStore();
+  const [categorias, setCategorias] = useState([]);
+  const [marcas, setMarcas] = useState([]);
   const [producto, setProducto] = useState({
     nombre: '',
-    imagen: '', 
-    marca: '',
+    imagen: '',
+    idMarca: '',
     descripcion: '',
     precio_costo: '',
     precio_venta: '',
     stock: '',
     stock_min: '',
-    eliminado: 0,
+    eliminado: false,
     idCategoria: ''
   });
+  
+  useEffect(() => {
+    const obtenerCategorias = async () => {
+      try {
+        const response = await ObtenerCategorias();
+        setCategorias(response.data); // Guardar los datos en el estado
+      } catch (error) {
+        console.error("Error al obtener categorías:", error);
+      }
+    };
+    const obtenerMarcas = async () => {
+      try {
+        const response = await ObtenerMarcas();
+        setMarcas(response.data); // Guardar los datos en el estado
+      } catch (error) {
+        console.error("Error al obtener marcas:", error);
+      }
+    };
+
+    obtenerCategorias();
+    obtenerMarcas();
+  }, []);
 
   const handleChange = (e) => {
     setProducto({ ...producto, [e.target.name]: e.target.value });
@@ -31,16 +54,15 @@ function CargarProducto() {
         precio_venta: parseFloat(producto.precio_venta),
         stock: parseInt(producto.stock),
         stock_min: parseInt(producto.stock_min),
-        eliminado: parseInt(producto.eliminado),
         idCategoria: parseInt(producto.idCategoria)
       });
-      console.log('Producto cargado:', data);
       alert('Producto cargado con éxito');
     } catch (error) {
       console.error('Error al subir el producto:', error);
       alert('Error al cargar el producto');
     }
   };
+
 
   return (
     <div className="col-md-4 mx-auto">
@@ -54,9 +76,23 @@ function CargarProducto() {
           <label>Imagen (URL)</label>
           <input type="text" name="imagen" className="form-control" value={producto.imagen} onChange={handleChange} required />
         </div>
+        {/* DESPLEGABLE MARCAS */}
         <div className="mb-3">
           <label>Marca</label>
-          <input type="text" name="marca" className="form-control" value={producto.marca} onChange={handleChange} required />
+          <select
+            name="idMarca"
+            className="form-control"
+            value={producto.idMarca}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Seleccione una marca</option>
+            {marcas.map((marca) => (
+              <option key={marca.idMarca} value={marca.idMarca} >
+                {marca.marca}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-3">
           <label>Descripción</label>
@@ -78,9 +114,24 @@ function CargarProducto() {
           <label>Stock Mínimo</label>
           <input type="number" name="stock_min" className="form-control" value={producto.stock_min} onChange={handleChange} required />
         </div>
+
+        {/* DESPLEGABLE CATEGORIAS */}
         <div className="mb-3">
-          <label>ID Categoría</label>
-          <input type="number" name="idCategoria" className="form-control" value={producto.idCategoria} onChange={handleChange} required />
+          <label>Categoría</label>
+          <select
+            name="idCategoria"
+            className="form-control"
+            value={producto.idCategoria}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Seleccione una categoría</option>
+            {categorias.map((categoria) => (
+              <option key={categoria.idCategoria} value={categoria.idCategoria} >  {/* value es el ID */}
+                {categoria.descripcion}  {/* Esto solo es lo que se muestra */}
+              </option>
+            ))}
+          </select>
         </div>
         <button className="btn btn-success w-100">Guardar Producto</button>
       </form>

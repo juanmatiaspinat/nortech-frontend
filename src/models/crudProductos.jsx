@@ -12,9 +12,18 @@ export async function CrearProducto(producto, token) {
     producto,
     {
       headers: {
-        Authorization: `Bearer ${token}` 
+        Authorization: `Bearer ${token}`
       }
     }
   );
   return response.data;
+}
+
+export async function ObtenerCategorias() {
+  const response = await axios.get(`${API_URL_PRODUCTS}/categories`);
+  return response
+}
+export async function ObtenerMarcas() {
+  const response = await axios.get(`${API_URL_PRODUCTS}/brands`);
+  return response;
 }
