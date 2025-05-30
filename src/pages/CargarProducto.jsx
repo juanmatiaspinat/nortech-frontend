@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useProductosStore } from "../store/ProductStore"; // Ajusta el path
+import { useAuthStore } from '../store/AuthStore';
 
 function CargarProducto() {
+const { isAuthenticated, datauserAuth } = useAuthStore();
+if (!isAuthenticated || !datauserAuth.isAdmin) {
+  return (
+    <div>
+      <h2>No tienes permiso para acceder a esta sección.</h2>
+    </div>
+  );  
+}
+
   const { crearProducto, ObtenerCategorias, ObtenerMarcas } = useProductosStore();
   const [categorias, setCategorias] = useState([]);
   const [marcas, setMarcas] = useState([]);

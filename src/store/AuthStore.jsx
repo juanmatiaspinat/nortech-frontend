@@ -19,7 +19,7 @@ export const useAuthStore = create(
           );
           ;
           const datauser = response.data.user      
-          return response.data;
+          return datauser
         } catch (error) {
           set({ error: "Failed to login. Please check your credentials." });
           return null;
