@@ -5,7 +5,6 @@ import logo from '../assets/logoNorTech-navbar.png';
 
 function Navbar() {
     const { isAuthenticated, signout, datauserAuth } = useAuthStore();
-    console.log("🚀 ~ Navbar ~ datauserAuth:", datauserAuth)
     const navigate = useNavigate();
 
     const handleLogout = () => {
