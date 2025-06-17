@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useProductosStore } from "../store/ProductStore"; // Ajusta el path
 import { useAuthStore } from '../store/AuthStore';
-
+import { useSearchParams } from 'react-router-dom';
 function CargarProducto() {
-const { isAuthenticated, datauserAuth } = useAuthStore();
-if (!isAuthenticated || !datauserAuth.isAdmin) {
-  return (
-    <div>
-      <h2>No tienes permiso para acceder a esta sección.</h2>
-    </div>
-  );  
-}
+  const { isAuthenticated, datauserAuth } = useAuthStore();
+  if (!isAuthenticated || !datauserAuth.isAdmin) {
+    return (
+      <div>
+        <h2>No tienes permiso para acceder a esta sección.</h2>
+      </div>
+    );
+  }
 
-  const { crearProducto, ObtenerCategorias, ObtenerMarcas } = useProductosStore();
+  const { crearProducto, ObtenerCategorias, ObtenerMarcas, obtenerProductoPorId, actualizarProducto } = useProductosStore();
+
+  const [searchParams] = useSearchParams();
+  const idProducto = searchParams.get("id");
+  const isEditMode = searchParams.get("editar") === "true";
+
   const [categorias, setCategorias] = useState([]);
   const [marcas, setMarcas] = useState([]);
+  console.log("🚀 ~ CargarProducto ~ marcas:", marcas)
   const [producto, setProducto] = useState({
     nombre: '',
     imagen: '',
@@ -27,7 +33,7 @@ if (!isAuthenticated || !datauserAuth.isAdmin) {
     eliminado: false,
     idCategoria: ''
   });
-  
+
   useEffect(() => {
     const obtenerCategorias = async () => {
       try {
@@ -50,29 +56,63 @@ if (!isAuthenticated || !datauserAuth.isAdmin) {
     obtenerMarcas();
   }, []);
 
+  // 🟢 Precargar datos si es modo editar
+  useEffect(() => {
+    if (isEditMode && idProducto) {
+      const fetchProducto = async () => {
+        const data = await obtenerProductoPorId(idProducto);
+        setProducto({
+          nombre: data.nombre,
+          imagen: data.imagen,
+          idMarca: data.idMarca,
+          descripcion: data.descripcion,
+          precio_costo: data.precio_costo,
+          precio_venta: data.precio_venta,
+          stock: data.stock,
+          stock_min: data.stock_min,
+          eliminado: data.eliminado,
+          idCategoria: data.idCategoria
+        });
+      };
+      fetchProducto();
+    }
+  }, [isEditMode, idProducto]);
+
   const handleChange = (e) => {
     setProducto({ ...producto, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const data = await crearProducto({
-        ...producto,
-        precio_costo: parseFloat(producto.precio_costo),
-        precio_venta: parseFloat(producto.precio_venta),
-        stock: parseInt(producto.stock),
-        stock_min: parseInt(producto.stock_min),
-        idCategoria: parseInt(producto.idCategoria)
-      });
-      alert('Producto cargado con éxito');
+      if (isEditMode) {
+
+        await actualizarProducto(idProducto, {
+          ...producto,
+          precio_costo: parseFloat(producto.precio_costo),
+          precio_venta: parseFloat(producto.precio_venta),
+          stock: parseInt(producto.stock),
+          stock_min: parseInt(producto.stock_min),
+          idCategoria: parseInt(producto.idCategoria)
+        });
+        alert('Producto actualizado con éxito');
+
+      } else {
+        await crearProducto({
+          ...producto,
+          precio_costo: parseFloat(producto.precio_costo),
+          precio_venta: parseFloat(producto.precio_venta),
+          stock: parseInt(producto.stock),
+          stock_min: parseInt(producto.stock_min),
+          idCategoria: parseInt(producto.idCategoria)
+        });
+        alert('Producto cargado con éxito');
+      }
     } catch (error) {
-      console.error('Error al subir el producto:', error);
-      alert('Error al cargar el producto');
+      console.error('Error:', error);
+      alert('Hubo un error');
     }
   };
-
 
   return (
     <div className="col-md-4 mx-auto">
@@ -98,8 +138,8 @@ if (!isAuthenticated || !datauserAuth.isAdmin) {
           >
             <option value="">Seleccione una marca</option>
             {marcas.map((marca) => (
-              <option key={marca.idMarca} value={marca.idMarca} >
-                {marca.marca}
+              <option key={marca.idMarca} value={marca.idmarca} >
+                {marca.nombre}
               </option>
             ))}
           </select>
@@ -137,8 +177,8 @@ if (!isAuthenticated || !datauserAuth.isAdmin) {
           >
             <option value="">Seleccione una categoría</option>
             {categorias.map((categoria) => (
-              <option key={categoria.idCategoria} value={categoria.idCategoria} >  {/* value es el ID */}
-                {categoria.descripcion}  {/* Esto solo es lo que se muestra */}
+              <option key={categoria.idCategoria} value={categoria.idcategoria} >  {/* value es el ID */}
+                {categoria.nombre}  {/* Esto solo es lo que se muestra */}
               </option>
             ))}
           </select>
