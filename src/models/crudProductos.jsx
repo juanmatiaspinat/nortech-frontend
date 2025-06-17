@@ -27,3 +27,20 @@ export async function ObtenerMarcas() {
   const response = await axios.get(`${API_URL_PRODUCTS}/brands`);
   return response;
 }
+export async function obtenerProductoPorId(id) {
+  const response = await axios.get(`${API_URL_PRODUCTS}/${id}`);
+  return response.data;
+}
+
+export async function actualizarProducto(id, producto, token) {
+  const response = await axios.put(
+    `${API_URL_PRODUCTS}/${id}`,
+    producto,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  return response.data;
+}
