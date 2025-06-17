@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MostrarProductos, CrearProducto, ObtenerCategorias, ObtenerMarcas } from "../models/crudProductos";
+import { MostrarProductos, CrearProducto, ObtenerCategorias, ObtenerMarcas, obtenerProductoPorId, actualizarProducto } from "../models/crudProductos";
 import { useAuthStore } from "./AuthStore";
 export const useProductosStore = create((set) => ({
   dataproductos: [],
@@ -27,4 +27,15 @@ export const useProductosStore = create((set) => ({
     return response;
   },
 
+  obtenerProductoPorId: async (id) => {
+    const response = await obtenerProductoPorId(id);
+    return response;
+  },
+
+
+  actualizarProducto: async (id, producto) => {
+    const token = useAuthStore.getState().token; // Obtenemos el token del AuthStore
+    const response = await actualizarProducto(id, producto, token);
+    return response;
+  },
 }));
