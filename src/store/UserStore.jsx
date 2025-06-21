@@ -1,12 +1,18 @@
 import { create } from "zustand";
-import { MostrarUsuarioXIdSupabase } from "../models/crudUsuarios";
+import { crearUsuario, obtenerPerfiles } from "../models/crudUsuarios";
 
 export const useUsuariosStore = create((set) => ({
-  datausuarios: [],
-  mostrarUserXIdSupabase: async (p) => {
-    console.log(p)
-    const response = await MostrarUsuarioXIdSupabase(p);
-    set({ datausuarios: response });
+
+   perfiles: [],
+  crearNuevoUsuario: async (payload) => {
+    const response = await crearUsuario(payload);
     return response;
   },
+
+  cargarPerfiles: async () => {
+    const perfiles = await obtenerPerfiles();
+    set({ perfiles });
+    return perfiles;
+  },
+
 }));

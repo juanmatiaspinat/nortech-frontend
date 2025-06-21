@@ -2,12 +2,12 @@ import ProductCard from '../components/ProductCard';
 import { useProductosStore } from '../store/ProductStore';
 import { useEffect } from 'react';
 import { useAuthStore } from '../store/AuthStore';
-import { Link } from "react-router-dom"; // por si lo vas a redirigir a otra página
+import { Link } from "react-router-dom"; 
 
 
 function Catalogo() {
     const { isAuthenticated, datauserAuth } = useAuthStore();
-    const { dataproductos, mostrarProductos } = useProductosStore();
+    const { dataproductos, mostrarProductos, eliminarProducto } = useProductosStore();
 
     useEffect(() => {
         mostrarProductos(); // Carga los productos al montar el componente
@@ -26,7 +26,7 @@ function Catalogo() {
 
             <div className="row">
                 {dataproductos.map((p, index) => (
-                    <ProductCard key={index} {...p} isAdmin={datauserAuth.isAdmin} id_producto={p.id} />
+                    <ProductCard key={index} {...p} isAdmin={datauserAuth.isAdmin} id_producto={p.id} onDelete={eliminarProducto} />
                 ))}
             </div>
         </div>

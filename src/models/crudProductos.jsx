@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_URL_PRODUCTS } from "../api/conexiones";
 
 export async function MostrarProductos() {
-  const response = await axios.get(`${API_URL_PRODUCTS}/`);
+  const response = await axios.get(`${API_URL_PRODUCTS}/active  `);
   return response.data;
 }
 
@@ -40,6 +40,18 @@ export async function actualizarProducto(id, producto, token) {
       headers: {
         Authorization: `Bearer ${token}`
       }
+    }
+  );
+  return response.data;
+}
+
+export async function eliminarProducto(id, token) {
+  const response = await axios.delete(
+    `${API_URL_PRODUCTS}/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   return response.data;
