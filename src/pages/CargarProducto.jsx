@@ -183,7 +183,7 @@ function CargarProducto() {
             ))}
           </select>
         </div>
-        <button className="btn btn-success w-100">Guardar Producto</button>
+        <button className="btn btn-success btn-sm w-100">Guardar Producto</button>
       </form>
     </div>
   );

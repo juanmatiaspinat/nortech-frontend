@@ -138,7 +138,7 @@ function Register() {
                     />
                 </div>
 
-                <button className="btn btn-success w-100" type="submit">
+                <button className="btn btn-success btn-sm w-100" type="submit">
                     Crear cuenta
                 </button>
             </form>

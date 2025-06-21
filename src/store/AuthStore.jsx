@@ -20,6 +20,7 @@ export const useAuthStore = create(
           ;
           const datauser = response.data.user
           return datauser
+        // eslint-disable-next-line no-unused-vars
         } catch (error) {
           set({ error: "Failed to login. Please check your credentials." });
           return null;
@@ -42,6 +43,7 @@ export const useAuthStore = create(
             datauserAuth: datauser
           });
           return response.data;
+          // eslint-disable-next-line no-unused-vars
         } catch (error) {
           set({ error: "Failed to login. Please check your credentials." });
           return null;

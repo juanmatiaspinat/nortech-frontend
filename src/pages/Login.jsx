@@ -52,7 +52,7 @@ function Login() {
           {errors.password && <p style={{ color: "red" }}>{errors.password.message}</p>}
         </div>
         {loginError && <p style={{ color: "red" }}>{loginError}</p>}
-        <button type="submit" className="btn btn-primary w-100">Ingresar</button>
+        <button type="submit" className="btn btn-primary btn-sm w-100">Ingresar</button>
       </form>
     </div>
   );

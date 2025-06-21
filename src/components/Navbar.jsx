@@ -6,11 +6,13 @@ import logo from '../assets/logoNorTech-navbar.png';
 function Navbar() {
     const { isAuthenticated, signout, datauserAuth } = useAuthStore();
     const navigate = useNavigate();
+    console.log("✅ Usuario autenticado:", datauserAuth); // Aca
 
     const handleLogout = () => {
         signout();
         navigate("/login");
     };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
