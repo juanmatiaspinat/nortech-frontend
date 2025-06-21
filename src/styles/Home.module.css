@@ -1,64 +1,177 @@
-.main-container {
+/* --- VARIABLES DE COLOR Y FUENTES (¡Fácil de cambiar!) --- */
+:root {
+    --primary-color: #007bff; /* Un azul moderno y vibrante */
+    --primary-color-darker: #0056b3;
+    --dark-grey: #333;
+    --light-grey: #f8f9fa;
+    --text-color: #555;
+    --font-title: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+/* --- CONTENEDOR PRINCIPAL DE LA PÁGINA --- */
+.homeContainer {
+    width: 100%;
+}
+
+/* --- SECCIÓN HÉROE (IMAGEN DE FONDO Y TEXTO PRINCIPAL) --- */
+.heroSection {
     position: relative;
-    width: 100%;
+    height: 80vh; /* Ocupa el 80% de la altura de la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    /* ¡Asegúrate de que la ruta a tu imagen sea correcta! */
+    background-image: url('../assets/fondoCelulares.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efecto Parallax */
 }
 
-.hero-image {
-    width: 100%;
-    height: auto;
-}
-
-.hero-image img {
+.heroOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: brightness(70%);
+    background-color: rgba(0, 0, 0, 0.6); /* Capa oscura para legibilidad */
+    z-index: 1;
 }
 
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.6);
+.heroText {
+    position: relative; /* Para que esté por encima del overlay */
+    z-index: 2;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.heroText h1 {
+    font-family: var(--font-title);
+    font-size: 3.5rem; /* Tamaño grande e impactante */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Sombra para resaltar */
+}
+
+.heroText .subtitle {
+    font-family: var(--font-body);
+    font-size: 1.4rem;
+    font-weight: 300; /* Más liviano */
+    margin-bottom: 2rem;
+}
+
+/* --- BOTÓN DE LLAMADO A LA ACCIÓN (CTA) --- */
+.ctaButton {
+    font-family: var(--font-title);
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 15px 30px;
+    background-color: var(--primary-color);
     color: white;
-    padding: 30px;
-    border-radius: 15px;
+    border: none;
+    border-radius: 50px; /* Bordes redondeados */
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.ctaButton:hover {
+    background-color: var(--primary-color-darker);
+    transform: translateY(-3px); /* Efecto al pasar el mouse */
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.6);
+}
+
+/* --- SECCIÓN DE CARACTERÍSTICAS/SERVICIOS --- */
+.featuresSection {
+    padding: 80px 20px;
     text-align: center;
-    width: 80%;
-    max-width: 960px;
+    background-color: var(--light-grey);
 }
 
-.hero-text h1 {
-    font-size: 3em;
+.featuresSection h2 {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    color: var(--dark-grey);
+}
+
+.featuresGrid {
+    display: grid;
+    /* Crea 4 columnas en desktop, 2 en tablet y 1 en celular */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px; /* Espacio entre las tarjetas */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.featureCard {
+    background-color: white;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.featureCard .icon {
+    font-size: 3rem;
+    color: var(--primary-color);
     margin-bottom: 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
 }
 
-.hero-text h2 {
-    font-size: 1.8em;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-}
-
-.hero-text p {
-    font-size: 1.2em;
-    line-height: 1.6;
+.featureCard h3 {
+    font-family: var(--font-title);
+    font-size: 1.3rem;
+    color: var(--dark-grey);
     margin-bottom: 15px;
-    font-family: 'Open Sans', sans-serif;
 }
 
-.hero-text ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
+.featureCard p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
-.hero-text ul li {
-    font-size: 1.1em;
-    margin-bottom: 8px;
-    font-family: 'Open Sans', sans-serif;
+/* --- SECCIÓN DE CIERRE --- */
+.closingSection {
+    padding: 80px 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.closingSection h2 {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: var(--dark-grey);
+}
+.closingSection p {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    line-height: 1.7;
+}
+
+/* --- MEDIA QUERIES PARA RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    .heroText h1 {
+        font-size: 2.5rem;
+    }
+    .heroText .subtitle {
+        font-size: 1.1rem;
+    }
+    .featuresSection h2, .closingSection h2 {
+        font-size: 2rem;
+    }
+
+
 }

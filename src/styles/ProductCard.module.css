@@ -1,0 +1,46 @@
+/* --- Estilos para la Tarjeta de Producto --- */
+
+/* Contenedor para la información (título y precio) */
+.product-info-container {
+    /* Le damos una altura fija para que todas las tarjetas se alineen perfectamente.
+       Ajusta este valor según el largo de tus títulos. */
+    height: 120px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empuja el precio hacia abajo */
+    margin-bottom: 1rem; /* Espacio antes del botón "Agregar al carrito" */
+}
+
+/* Estilo para el Título del Producto */
+.product-title {
+    font-family: 'Poppins', 'Montserrat', sans-serif; /* Usa una fuente moderna */
+    font-size: 1rem; /* Un tamaño de fuente legible */
+    font-weight: 600; /* Semi-negrita para que tenga presencia */
+    color: #333; /* Un gris oscuro en lugar de negro puro */
+    line-height: 1.3;
+    
+    /* --- ¡EL TRUCO MÁGICO PARA ALINEAR TÍTULOS! --- */
+    /* Limita el título a un máximo de 2 líneas y agrega "..." al final si es muy largo.
+       Esto evita que títulos largos rompan el diseño de la grilla. */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* Estilo para el Precio del Producto */
+.product-price {
+    font-family: 'Poppins', 'Montserrat', sans-serif;
+    font-size: 1.4rem; /* Más grande para que destaque */
+    font-weight: 700; /* Negrita para máxima visibilidad */
+    color: #007bff; /* Color primario de tu marca (o el que prefieras) */
+    margin: 0; /* Quitamos el margen por defecto del párrafo */
+    text-align: left; /* Alineado a la izquierda */
+}
+
+/* Opcional: Si quieres alinear el precio a la derecha */
+/*
+.product-price {
+    text-align: right;
+}
+*/
