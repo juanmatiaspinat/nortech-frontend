@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
-import {API_URL_AUTH} from "../api/conexiones"
+import { API_URL_AUTH } from "../api/conexiones"
 
 export const useAuthStore = create(
   persist(
@@ -18,7 +18,7 @@ export const useAuthStore = create(
             { email: p.email, password: p.password }
           );
           ;
-          const datauser = response.data.user      
+          const datauser = response.data.user
           return datauser
         } catch (error) {
           set({ error: "Failed to login. Please check your credentials." });
@@ -33,13 +33,13 @@ export const useAuthStore = create(
           );
           const token = response.data.session.access_token;
           const datauser = response.data.session.user
-       
+
           localStorage.setItem("token", token);
           set({
             isAuthenticated: true,
             token: token,
             error: null,
-            datauserAuth:datauser
+            datauserAuth: datauser
           });
           return response.data;
         } catch (error) {
@@ -49,7 +49,7 @@ export const useAuthStore = create(
       },
       signout: async () => {
         localStorage.removeItem("token");
-        set({ isAuthenticated: false, token: null,datauserAuth:[] });
+        set({ isAuthenticated: false, token: null, datauserAuth: [] });
       },
       checkAuth: () => {
         const token = localStorage.getItem("token");
