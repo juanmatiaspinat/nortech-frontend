@@ -20,7 +20,6 @@ function CargarProducto() {
 
   const [categorias, setCategorias] = useState([]);
   const [marcas, setMarcas] = useState([]);
-  console.log("🚀 ~ CargarProducto ~ marcas:", marcas)
   const [producto, setProducto] = useState({
     nombre: '',
     imagen: '',
@@ -84,6 +83,46 @@ function CargarProducto() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //TODO: crear esquema de validacion con estos datos
+    const camposObligatorios = [
+      producto.nombre.trim(),
+      producto.imagen.trim(),
+      producto.idMarca,
+      producto.precio_costo,
+      producto.precio_venta,
+      producto.stock,
+      producto.stock_min,
+      producto.idCategoria
+    ];
+    const camposNumericos = [
+      producto.precio_costo,
+      producto.precio_venta,
+      producto.stock,
+      producto.stock_min
+    ];
+    const algunNumeroNegativo = camposNumericos.some(num => parseFloat(num) < 0);
+    const algunCampoInvalido = camposObligatorios.some(
+      (campo) => campo === '' || campo === null || campo === undefined
+    );
+
+    const stock = parseInt(producto.stock);
+    const stockMin = parseInt(producto.stock_min);
+
+    if (stock < stockMin) {
+      alert("El stock no puede ser menor que el stock mínimo.");
+      return;
+    } 
+
+    if (algunNumeroNegativo) {
+      alert("Los valores numéricos no pueden ser negativos.");
+      return;
+    }
+
+    if (algunCampoInvalido) {
+      alert('Datos invalidos, por favor revise los datos e intente de nuevo');
+      return;
+    }
+
     try {
       if (isEditMode) {
 
@@ -120,11 +159,11 @@ function CargarProducto() {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label>Nombre</label>
-          <input type="text" name="nombre" className="form-control" value={producto.nombre} onChange={handleChange} required />
+          <input type="text" name="nombre" className="form-control" value={producto.nombre} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <label>Imagen (URL)</label>
-          <input type="text" name="imagen" className="form-control" value={producto.imagen} onChange={handleChange} required />
+          <input type="text" name="imagen" className="form-control" value={producto.imagen} onChange={handleChange} />
         </div>
         {/* DESPLEGABLE MARCAS */}
         <div className="mb-3">
@@ -134,7 +173,7 @@ function CargarProducto() {
             className="form-control"
             value={producto.idMarca}
             onChange={handleChange}
-            required
+
           >
             <option value="">Seleccione una marca</option>
             {marcas.map((marca) => (
@@ -150,19 +189,19 @@ function CargarProducto() {
         </div>
         <div className="mb-3">
           <label>Precio Costo</label>
-          <input type="number" name="precio_costo" className="form-control" value={producto.precio_costo} onChange={handleChange} required />
+          <input type="number" name="precio_costo" className="form-control" value={producto.precio_costo} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <label>Precio Venta</label>
-          <input type="number" name="precio_venta" className="form-control" value={producto.precio_venta} onChange={handleChange} required />
+          <input type="number" name="precio_venta" className="form-control" value={producto.precio_venta} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <label>Stock</label>
-          <input type="number" name="stock" className="form-control" value={producto.stock} onChange={handleChange} required />
+          <input type="number" name="stock" className="form-control" value={producto.stock} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <label>Stock Mínimo</label>
-          <input type="number" name="stock_min" className="form-control" value={producto.stock_min} onChange={handleChange} required />
+          <input type="number" name="stock_min" className="form-control" value={producto.stock_min} onChange={handleChange} />
         </div>
 
         {/* DESPLEGABLE CATEGORIAS */}
@@ -173,7 +212,7 @@ function CargarProducto() {
             className="form-control"
             value={producto.idCategoria}
             onChange={handleChange}
-            required
+
           >
             <option value="">Seleccione una categoría</option>
             {categorias.map((categoria) => (
