@@ -28,8 +28,60 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const camposObligatorios = [
+      formData.idperfil,
+      formData.nombre.trim(),
+      formData.apellido.trim(),
+      formData.usuario.trim(),
+      formData.contraseña.trim(),
+      formData.email.trim(),
+      formData.dni.trim(),
+      formData.fechaNacimiento.trim(),
+      formData.telefono.trim()
+    ];
 
-    // Asegura que se envíe fechanacimiento y el idperfil como número
+    const algunCampoVacio = camposObligatorios.some(
+      (campo) => campo === "" || campo === null || campo === undefined
+    );
+
+    if (algunCampoVacio) {
+      alert("Por favor, completa todos los campos obligatorios.");
+      return;
+    }
+
+    // 2️⃣ Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      alert("El correo electrónico no tiene un formato válido.");
+      return;
+    }
+
+    // 3️⃣ Validar que la contraseña no esté vacía (ya validado arriba, pero por claridad)
+    if (formData.contraseña.trim() === "") {
+      alert("La contraseña no puede estar vacía.");
+      return;
+    }
+
+    // 4️⃣ Validar que fecha de nacimiento no sea mayor a hoy
+    const fechaNacimiento = new Date(formData.fechaNacimiento);
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0); // Ignorar hora
+
+    if (fechaNacimiento > hoy) {
+      alert("La fecha de nacimiento no puede ser mayor a la fecha actual.");
+      return;
+    }
+
+    // 5️⃣ Validar campos numéricos: DNI y teléfono
+    const dniValido = /^\d+$/.test(formData.dni) && parseInt(formData.dni) >= 0;
+    const telefonoValido = /^\d+$/.test(formData.telefono) && parseInt(formData.telefono) >= 0;
+
+    if (!dniValido || !telefonoValido) {
+      alert("Los campos numéricos (DNI y Teléfono) deben contener solo números positivos.");
+      return;
+    }
+
+    // 🚀 Si pasa todas las validaciones, construir payload
     const payload = {
       ...formData,
       idperfil: Number(formData.idperfil),
@@ -39,10 +91,7 @@ function Register() {
 
     try {
       const result = await crearNuevoUsuario(payload);
-      alert("✅ Usuario registrado exitosamente");
-      console.log("Registro exitoso:", result);
-
-      // Limpia formulario
+      alert("Usuario registrado exitosamente");
       setFormData({
         idperfil: "",
         nombre: "",
@@ -62,6 +111,7 @@ function Register() {
     }
   };
 
+
   return (
     <div className="col-md-6 mx-auto">
       <h2>Registrarse</h2>
@@ -73,7 +123,7 @@ function Register() {
             name="idperfil"
             value={formData.idperfil}
             onChange={handleChange}
-            required
+            
           >
             <option value="">Seleccione un perfil</option>
             {perfiles.map((perfil) => (
@@ -92,7 +142,7 @@ function Register() {
             className="form-control"
             value={formData.nombre}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -104,7 +154,7 @@ function Register() {
             className="form-control"
             value={formData.apellido}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -116,7 +166,7 @@ function Register() {
             className="form-control"
             value={formData.usuario}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -128,7 +178,7 @@ function Register() {
             className="form-control"
             value={formData.contraseña}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -140,7 +190,7 @@ function Register() {
             className="form-control"
             value={formData.email}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -152,7 +202,7 @@ function Register() {
             className="form-control"
             value={formData.dni}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -164,7 +214,7 @@ function Register() {
             className="form-control"
             value={formData.fechaNacimiento}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -176,7 +226,7 @@ function Register() {
             className="form-control"
             value={formData.telefono}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
