@@ -111,7 +111,7 @@ function CargarProducto() {
     if (stock < stockMin) {
       alert("El stock no puede ser menor que el stock mínimo.");
       return;
-    } 
+    }
 
     if (algunNumeroNegativo) {
       alert("Los valores numéricos no pueden ser negativos.");
@@ -155,7 +155,8 @@ function CargarProducto() {
 
   return (
     <div className="col-md-4 mx-auto">
-      <h2>Cargar nuevo producto</h2>
+      {isEditMode ? <h2>Editar producto</h2> : <h2>Cargar nuevo producto</h2>}
+
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label>Nombre</label>
