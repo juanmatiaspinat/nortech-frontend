@@ -20,4 +20,3 @@ export async function obtenerPerfiles() {
     throw error.response ? error.response.data : error;
   }
 }
-
