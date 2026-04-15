@@ -2,20 +2,23 @@ import axios from "axios";
 import { API_URL_PRODUCTS } from "../api/conexiones";
 
 export async function MostrarProductos() {
-  const response = await axios.get(`${API_URL_PRODUCTS}/active  `);
+  const response = await axios.get(`${API_URL_PRODUCTS}/active`);
   return response.data;
 }
 
 export async function CrearProducto(producto, token) {
+  console.log("TOKEN ENVIADO:", token);
+
   const response = await axios.post(
     `${API_URL_PRODUCTS}/`,
     producto,
     {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
+
   return response.data;
 }
 

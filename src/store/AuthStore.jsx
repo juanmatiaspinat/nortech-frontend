@@ -37,35 +37,25 @@ export const useAuthStore = create(
             password: p.password,
           });
 
-          console.log("LOGIN RESPONSE:", response.data);
+          const session = response.data.session;
+          const token = session.access_token;
+          const datauser = session.user;
 
-          const token = response.data?.session?.access_token;
-          const datauser = response.data?.session?.user;
-
-          if (!token) {
-            throw new Error("No se recibió token en la respuesta");
-          }
-
+          // ✅ guardar SIEMPRE el token fresco
           localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(datauser));
 
           set({
             isAuthenticated: true,
             token,
             error: null,
-            datauserAuth: datauser || [],
+            datauserAuth: datauser,
           });
 
           return response.data;
         } catch (error) {
           console.error("ERROR LOGIN:", error.response?.data || error);
-
-          set({
-            error:
-              error.response?.data?.message ||
-              error.message ||
-              "Error al iniciar sesión",
-          });
-
+          set({ error: "Failed to login. Please check your credentials." });
           return null;
         }
       },
