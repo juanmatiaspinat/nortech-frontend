@@ -57,15 +57,11 @@ export const useProductosStore = create((set) => ({
   },
 
   eliminarProducto: async (id) => {
-    const token =
-      useAuthStore.getState().token || localStorage.getItem("token");
-
+    const token = useAuthStore.getState().token;
     await eliminarProducto(id, token);
 
     set((state) => ({
-      dataproductos: state.dataproductos.filter(
-        (p) => p.id_producto !== id
-      ),
+      dataproductos: state.dataproductos.filter((p) => p.id !== id),
     }));
   },
 }));
