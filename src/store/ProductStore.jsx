@@ -20,7 +20,7 @@ export const useProductosStore = create((set) => ({
   },
 
   crearProducto: async (producto) => {
-    // ✅ fallback por si zustand todavía no rehidrató
+    // fallback por si zustand todavía no rehidrató
     const token =
       useAuthStore.getState().token || localStorage.getItem("token");
 

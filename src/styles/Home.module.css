@@ -23,7 +23,6 @@
     align-items: center;
     text-align: center;
     color: white;
-    /* ¡Asegúrate de que la ruta a tu imagen sea correcta! */
     background-image: url('../assets/fondoCelulares.jpg');
     background-size: cover;
     background-position: center;

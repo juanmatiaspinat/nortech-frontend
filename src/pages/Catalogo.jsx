@@ -14,7 +14,7 @@ function Catalogo() {
     mostrarProductos();
   }, [mostrarProductos]);
 
-  // 🛒 agregar al carrito usando localStorage simple y funcional
+  // agregar al carrito usando localStorage simple y funcional
   const handleAddToCart = (producto) => {
     const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
 

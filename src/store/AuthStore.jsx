@@ -41,7 +41,7 @@ export const useAuthStore = create(
           const token = session.access_token;
           const datauser = session.user;
 
-          // ✅ guardar SIEMPRE el token fresco
+          //  guardar SIEMPRE el token fresco
           localStorage.setItem("token", token);
           localStorage.setItem("user", JSON.stringify(datauser));
 
