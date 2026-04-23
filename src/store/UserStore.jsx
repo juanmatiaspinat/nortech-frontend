@@ -2,17 +2,30 @@ import { create } from "zustand";
 import { crearUsuario, obtenerPerfiles } from "../models/crudUsuarios";
 
 export const useUsuariosStore = create((set) => ({
+  perfiles: [],
 
-   perfiles: [],
   crearNuevoUsuario: async (payload) => {
     const response = await crearUsuario(payload);
     return response;
   },
 
   cargarPerfiles: async () => {
-    const perfiles = await obtenerPerfiles();
-    set({ perfiles });
-    return perfiles;
-  },
+    try {
+      const perfiles = await obtenerPerfiles();
 
+      set(() => ({
+        perfiles: Array.isArray(perfiles) ? [...perfiles] : [],
+      }));
+
+      return perfiles;
+    } catch (error) {
+      console.error("Error al cargar perfiles:", error);
+
+      set(() => ({
+        perfiles: [],
+      }));
+
+      return [];
+    }
+  },
 }));

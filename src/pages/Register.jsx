@@ -16,10 +16,9 @@ function Register() {
     telefono: "",
   });
 
-  // ⚡ Cargar perfiles al montar el componente
   useEffect(() => {
     cargarPerfiles();
-  }, [cargarPerfiles]);
+  }, []); // ← CORREGIDO
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +27,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const camposObligatorios = [
       formData.idperfil,
       formData.nombre.trim(),
@@ -37,7 +37,7 @@ function Register() {
       formData.email.trim(),
       formData.dni.trim(),
       formData.fechaNacimiento.trim(),
-      formData.telefono.trim()
+      formData.telefono.trim(),
     ];
 
     const algunCampoVacio = camposObligatorios.some(
@@ -49,49 +49,50 @@ function Register() {
       return;
     }
 
-    // 2️⃣ Validar formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
       alert("El correo electrónico no tiene un formato válido.");
       return;
     }
 
-    // 3️⃣ Validar que la contraseña no esté vacía (ya validado arriba, pero por claridad)
     if (formData.contraseña.trim() === "") {
       alert("La contraseña no puede estar vacía.");
       return;
     }
 
-    // 4️⃣ Validar que fecha de nacimiento no sea mayor a hoy
     const fechaNacimiento = new Date(formData.fechaNacimiento);
     const hoy = new Date();
-    hoy.setHours(0, 0, 0, 0); // Ignorar hora
+    hoy.setHours(0, 0, 0, 0);
 
     if (fechaNacimiento > hoy) {
       alert("La fecha de nacimiento no puede ser mayor a la fecha actual.");
       return;
     }
 
-    // 5️⃣ Validar campos numéricos: DNI y teléfono
     const dniValido = /^\d+$/.test(formData.dni) && parseInt(formData.dni) >= 0;
-    const telefonoValido = /^\d+$/.test(formData.telefono) && parseInt(formData.telefono) >= 0;
+    const telefonoValido =
+      /^\d+$/.test(formData.telefono) && parseInt(formData.telefono) >= 0;
 
     if (!dniValido || !telefonoValido) {
-      alert("Los campos numéricos (DNI y Teléfono) deben contener solo números positivos.");
+      alert(
+        "Los campos numéricos (DNI y Teléfono) deben contener solo números positivos."
+      );
       return;
     }
 
-    // 🚀 Si pasa todas las validaciones, construir payload
     const payload = {
       ...formData,
       idperfil: Number(formData.idperfil),
       fechanacimiento: formData.fechaNacimiento,
     };
+
     delete payload.fechaNacimiento;
 
     try {
-      const result = await crearNuevoUsuario(payload);
+      await crearNuevoUsuario(payload);
+
       alert("Usuario registrado exitosamente");
+
       setFormData({
         idperfil: "",
         nombre: "",
@@ -103,14 +104,11 @@ function Register() {
         fechaNacimiento: "",
         telefono: "",
       });
-
-      // window.location.href = "/login"; // Opcional
     } catch (error) {
       console.error("❌ Error:", error);
       alert(error?.message || "Error al registrar usuario");
     }
   };
-
 
   return (
     <div className="col-md-6 mx-auto">
@@ -123,111 +121,55 @@ function Register() {
             name="idperfil"
             value={formData.idperfil}
             onChange={handleChange}
-            
           >
             <option value="">Seleccione un perfil</option>
-            {perfiles.map((perfil) => (
-              <option key={perfil.idperfil} value={perfil.idperfil}>
-                {perfil.nombre}
-              </option>
-            ))}
+            {Array.isArray(perfiles) &&
+              perfiles.map((perfil) => (
+                <option key={perfil.idperfil} value={perfil.idperfil}>
+                  {perfil.descripcion}
+                </option>
+              ))}
           </select>
         </div>
 
         <div className="mb-3">
           <label>Nombre</label>
-          <input
-            type="text"
-            name="nombre"
-            className="form-control"
-            value={formData.nombre}
-            onChange={handleChange}
-            
-          />
+          <input type="text" name="nombre" className="form-control" value={formData.nombre} onChange={handleChange} />
         </div>
 
         <div className="mb-3">
           <label>Apellido</label>
-          <input
-            type="text"
-            name="apellido"
-            className="form-control"
-            value={formData.apellido}
-            onChange={handleChange}
-            
-          />
+          <input type="text" name="apellido" className="form-control" value={formData.apellido} onChange={handleChange} />
         </div>
 
         <div className="mb-3">
           <label>Usuario</label>
-          <input
-            type="text"
-            name="usuario"
-            className="form-control"
-            value={formData.usuario}
-            onChange={handleChange}
-            
-          />
+          <input type="text" name="usuario" className="form-control" value={formData.usuario} onChange={handleChange} />
         </div>
 
         <div className="mb-3">
           <label>Contraseña</label>
-          <input
-            type="password"
-            name="contraseña"
-            className="form-control"
-            value={formData.contraseña}
-            onChange={handleChange}
-            
-          />
+          <input type="password" name="contraseña" className="form-control" value={formData.contraseña} onChange={handleChange} />
         </div>
 
         <div className="mb-3">
           <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            className="form-control"
-            value={formData.email}
-            onChange={handleChange}
-            
-          />
+          <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} />
         </div>
 
         <div className="mb-3">
           <label>DNI</label>
-          <input
-            type="number"
-            name="dni"
-            className="form-control"
-            value={formData.dni}
-            onChange={handleChange}
-            
-          />
+          <input type="number" name="dni" className="form-control" value={formData.dni} onChange={handleChange} />
         </div>
 
         <div className="mb-3">
           <label>Fecha de Nacimiento</label>
-          <input
-            type="date"
-            name="fechaNacimiento"
-            className="form-control"
-            value={formData.fechaNacimiento}
-            onChange={handleChange}
-            
-          />
+          <input type="date" name="fechaNacimiento" className="form-control" value={formData.fechaNacimiento} onChange={handleChange} />
         </div>
 
         <div className="mb-3">
           <label>Teléfono</label>
-          <input
-            type="text"
-            name="telefono"
-            className="form-control"
-            value={formData.telefono}
-            onChange={handleChange}
-            
-          />
+          <input type="text" name="telefono" className="form-control" value={formData.telefono} onChange={handleChange} />
         </div>
 
         <button className="btn btn-success btn-sm w-100" type="submit">

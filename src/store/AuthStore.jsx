@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
-import { API_URL_AUTH } from "../api/conexiones"
+import { API_URL_AUTH } from "../api/conexiones";
 
 export const useAuthStore = create(
   persist(
@@ -11,60 +11,83 @@ export const useAuthStore = create(
       token: null,
       error: null,
       datauserAuth: [],
+
       signCreateEmail: async (p) => {
         try {
-          const response = await axios.post(
-            `${API_URL_AUTH}/signup`,
-            { email: p.email, password: p.password }
-          );
-          ;
-          const datauser = response.data.user
-          return datauser
-        // eslint-disable-next-line no-unused-vars
+          const response = await axios.post(`${API_URL_AUTH}/signup`, {
+            email: p.email,
+            password: p.password,
+          });
+
+          return response.data.user;
         } catch (error) {
-          set({ error: "Failed to login. Please check your credentials." });
+          console.error("ERROR SIGNUP:", error.response?.data || error);
+          set({
+            error:
+              error.response?.data?.message || "Error al registrar usuario",
+          });
           return null;
         }
       },
+
       signInWithEmail: async (p) => {
         try {
-          const response = await axios.post(
-            `${API_URL_AUTH}/signin`,
-            { email: p.email, password: p.password }
-          );
-          const token = response.data.session.access_token;
-          const datauser = response.data.session.user
+          const response = await axios.post(`${API_URL_AUTH}/signin`, {
+            email: p.email,
+            password: p.password,
+          });
 
+          const session = response.data.session;
+          const token = session.access_token;
+          const datauser = session.user;
+
+          // ✅ guardar SIEMPRE el token fresco
           localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(datauser));
+
           set({
             isAuthenticated: true,
-            token: token,
+            token,
             error: null,
-            datauserAuth: datauser
+            datauserAuth: datauser,
           });
+
           return response.data;
-          // eslint-disable-next-line no-unused-vars
         } catch (error) {
+          console.error("ERROR LOGIN:", error.response?.data || error);
           set({ error: "Failed to login. Please check your credentials." });
           return null;
         }
       },
+
       signout: async () => {
         localStorage.removeItem("token");
-        set({ isAuthenticated: false, token: null, datauserAuth: [] });
+        set({
+          isAuthenticated: false,
+          token: null,
+          datauserAuth: [],
+        });
       },
+
       checkAuth: () => {
         const token = localStorage.getItem("token");
+
         if (token) {
-          set({ isAuthenticated: true, token: token });
+          set({
+            isAuthenticated: true,
+            token,
+          });
         } else {
-          set({ isAuthenticated: false, token: null });
+          set({
+            isAuthenticated: false,
+            token: null,
+          });
         }
       },
     }),
     {
-      name: "auth-storage", // Nombre del almacenamiento
-      getStorage: () => localStorage, // Configurar el almacenamiento como localStorage
-    }
-  )
+      name: "auth-storage",
+      getStorage: () => localStorage,
+    },
+  ),
 );
