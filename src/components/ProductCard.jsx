@@ -13,7 +13,7 @@ function ProductCard({
 
   const handleDeleteClick = () => {
     const confirmar = window.confirm(
-      `¿Estás seguro de que deseas eliminar el producto "${nombre}"?`
+      `¿Estás seguro de que deseas eliminar el producto "${nombre}"?`,
     );
 
     if (confirmar) {
@@ -33,9 +33,7 @@ function ProductCard({
 
     if (existe) {
       nuevoCarrito = carrito.map((p) =>
-        p.id === id_producto
-          ? { ...p, cantidad: (p.cantidad || 1) + 1 }
-          : p
+        p.id === id_producto ? { ...p, cantidad: (p.cantidad || 1) + 1 } : p,
       );
     } else {
       nuevoCarrito = [
@@ -71,12 +69,14 @@ function ProductCard({
             }).format(precio_venta)}
           </p>
 
-          <button
-            className="btn btn-primary btn-sm w-100"
-            onClick={handleAddToCart}
-          >
-            Agregar al carrito
-          </button>
+          {localStorage.getItem("user") ? (
+            <button
+              className="btn btn-primary btn-sm w-100"
+              onClick={handleAddToCart}
+            >
+              Agregar al carrito
+            </button>
+          ) : null}
 
           {isAdmin && (
             <>

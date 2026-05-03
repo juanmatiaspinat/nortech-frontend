@@ -9,6 +9,7 @@ function Navbar() {
 
   const handleLogout = () => {
     signout();
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
@@ -17,10 +18,7 @@ function Navbar() {
 
   const data = JSON.parse(localStorage.getItem(key)) || [];
 
-  const cantidadTotal = data.reduce(
-    (acc, p) => acc + (p.cantidad || 1),
-    0
-  );
+  const cantidadTotal = data.reduce((acc, p) => acc + (p.cantidad || 1), 0);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,11 +30,15 @@ function Navbar() {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto">
             <li>
-              <Link className="nav-link" to="/">Inicio</Link>
+              <Link className="nav-link" to="/">
+                Inicio
+              </Link>
             </li>
 
             <li>
-              <Link className="nav-link" to="/catalogo">Catálogo</Link>
+              <Link className="nav-link" to="/catalogo">
+                Catálogo
+              </Link>
             </li>
 
             {isAuthenticated && (
@@ -50,10 +52,17 @@ function Navbar() {
             {isAuthenticated ? (
               <>
                 <li>
-                  <span className="nav-link">{datauserAuth.email}</span>
+                  <span className="nav-link">
+                    {datauserAuth
+                      ? `${datauserAuth.role === 1 ? "ADMIN" : "CLIENTE"}: ${datauserAuth.email}`
+                      : null}
+                  </span>
                 </li>
                 <li>
-                  <button className="btn btn-link nav-link" onClick={handleLogout}>
+                  <button
+                    className="btn btn-link nav-link"
+                    onClick={handleLogout}
+                  >
                     Salir
                   </button>
                 </li>
@@ -61,10 +70,14 @@ function Navbar() {
             ) : (
               <>
                 <li>
-                  <Link className="nav-link" to="/login">Ingresar</Link>
+                  <Link className="nav-link" to="/login">
+                    Ingresar
+                  </Link>
                 </li>
                 <li>
-                  <Link className="nav-link" to="/registro">Registrarse</Link>
+                  <Link className="nav-link" to="/registro">
+                    Registrarse
+                  </Link>
                 </li>
               </>
             )}
