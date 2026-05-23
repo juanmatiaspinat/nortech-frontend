@@ -1,2 +1,3 @@
 export const API_URL_AUTH = "http://localhost:6543/auth";
 export const API_URL_PRODUCTS = "http://localhost:6543/products";
+export const API_URL_VENTAS = "http://localhost:6543/ventas";

@@ -1,4 +1,4 @@
-/* --- VARIABLES DE COLOR Y FUENTES (¡Fácil de cambiar!) --- */
+/* VARIABLES DE COLOR Y FUENTES */
 :root {
     --primary-color: #007bff; /* Un azul moderno y vibrante */
     --primary-color-darker: #0056b3;
@@ -9,12 +9,12 @@
     --font-body: 'Open Sans', sans-serif;
 }
 
-/* --- CONTENEDOR PRINCIPAL DE LA PÁGINA --- */
+/* CONTENEDOR PRINCIPAL DE LA PÁGINA */
 .homeContainer {
     width: 100%;
 }
 
-/* --- SECCIÓN HÉROE (IMAGEN DE FONDO Y TEXTO PRINCIPAL) --- */
+/* SECCIÓN 'hero' (IMAGEN DE FONDO Y TEXTO PRINCIPAL) */
 .heroSection {
     position: relative;
     height: 80vh; /* Ocupa el 80% de la altura de la pantalla */
@@ -26,7 +26,7 @@
     background-image: url('../assets/fondoCelulares.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Efecto Parallax */
+    background-attachment: fixed;
 }
 
 .heroOverlay {
@@ -35,12 +35,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Capa oscura para legibilidad */
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
 
 .heroText {
-    position: relative; /* Para que esté por encima del overlay */
+    position: relative;
     z-index: 2;
     max-width: 800px;
     padding: 20px;
@@ -48,20 +48,20 @@
 
 .heroText h1 {
     font-family: var(--font-title);
-    font-size: 3.5rem; /* Tamaño grande e impactante */
+    font-size: 3.5rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Sombra para resaltar */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
 
 .heroText .subtitle {
     font-family: var(--font-body);
     font-size: 1.4rem;
-    font-weight: 300; /* Más liviano */
+    font-weight: 300;
     margin-bottom: 2rem;
 }
 
-/* --- BOTÓN DE LLAMADO A LA ACCIÓN (CTA) --- */
+/* BOTÓN DE LLAMADO A LA ACCIÓN (CTA) */
 .ctaButton {
     font-family: var(--font-title);
     font-weight: bold;
@@ -70,7 +70,7 @@
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 50px; /* Bordes redondeados */
+    border-radius: 50px;
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
@@ -80,11 +80,11 @@
 
 .ctaButton:hover {
     background-color: var(--primary-color-darker);
-    transform: translateY(-3px); /* Efecto al pasar el mouse */
+    transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 123, 255, 0.6);
 }
 
-/* --- SECCIÓN DE CARACTERÍSTICAS/SERVICIOS --- */
+/* SECCIÓN DE CARACTERÍSTICAS/SERVICIOS */
 .featuresSection {
     padding: 80px 20px;
     text-align: center;
@@ -100,7 +100,7 @@
 
 .featuresGrid {
     display: grid;
-    /* Crea 4 columnas en desktop, 2 en tablet y 1 en celular */
+    /* ACA CREA 4 columnas en desktop, 2 en tablet y 1 en celular */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 40px; /* Espacio entre las tarjetas */
     max-width: 1200px;
@@ -140,7 +140,7 @@
     line-height: 1.6;
 }
 
-/* --- SECCIÓN DE CIERRE --- */
+/* SECCIÓN DE CIERRE */
 .closingSection {
     padding: 80px 20px;
     text-align: center;
@@ -160,7 +160,7 @@
     line-height: 1.7;
 }
 
-/* --- MEDIA QUERIES PARA RESPONSIVE DESIGN --- */
+/* MEDIA QUERIES PARA RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     .heroText h1 {
         font-size: 2.5rem;
@@ -171,6 +171,5 @@
     .featuresSection h2, .closingSection h2 {
         font-size: 2rem;
     }
-
 
 }

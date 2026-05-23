@@ -9,7 +9,7 @@ body,
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* EL SCROLL SOLO VA A AFECTAR AL MAIN (PARTE MEDIA) */
+    overflow: hidden;
 }
 
 .app-fixed-layout {
@@ -31,7 +31,7 @@ body,
     background-blend-mode: lighten;
 }
 
-/* ESTILOS FIJOS PARA NAVBAR Y FOOTER */
+/* ESTILOS FIJOS PARA EL NAVBAR Y FOOTER */
 nav {
     position: sticky;
     top: 0;

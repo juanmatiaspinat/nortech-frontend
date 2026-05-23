@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
 
 function Carrito() {
   const { datauserAuth } = useAuthStore();
   const [carrito, setCarrito] = useState([]);
+
+  const navigate = useNavigate();
 
   const userId = datauserAuth?.email;
   const key = `carrito_${userId}`;
@@ -24,16 +27,19 @@ function Carrito() {
     setCarrito([]);
   };
 
-  const finalizarCompra = () => {
-    alert("Compra realizada con éxito");
-    localStorage.removeItem(key);
-    setCarrito([]);
-  };
-
   const total = carrito.reduce(
     (acc, p) => acc + Number(p.precio_venta) * (p.cantidad || 1),
     0,
   );
+
+  const irAPago = () => {
+    navigate("/pago", {
+      state: {
+        carrito,
+        total,
+      },
+    });
+  };
 
   return (
     <div className="container mt-3">
@@ -79,8 +85,8 @@ function Carrito() {
                 Vaciar carrito
               </button>
 
-              <button className="btn btn-success" onClick={finalizarCompra}>
-                Finalizar compra
+              <button className="btn btn-success" onClick={irAPago}>
+                Elegir forma de pago
               </button>
             </div>
           </div>

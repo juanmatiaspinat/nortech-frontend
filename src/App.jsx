@@ -10,6 +10,7 @@ import Carrito from "./pages/Carrito";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CargarProducto from "./pages/CargarProducto";
+import Pago from "./pages/Pago";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/admin/cargar-producto" element={<CargarProducto />} />
+            <Route path="/pago" element={<Pago />} />
           </Routes>
         </main>
 
