@@ -12,6 +12,8 @@ import Register from "./pages/Register";
 import CargarProducto from "./pages/CargarProducto";
 import Pago from "./pages/Pago";
 
+import HistorialCompras from "./pages/HistorialCompras";
+
 function App() {
   return (
     <Router>
@@ -29,6 +31,8 @@ function App() {
             <Route path="/registro" element={<Register />} />
             <Route path="/admin/cargar-producto" element={<CargarProducto />} />
             <Route path="/pago" element={<Pago />} />
+
+            <Route path="/historial" element={<HistorialCompras />} />
           </Routes>
         </main>
 

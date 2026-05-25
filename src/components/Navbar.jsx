@@ -4,60 +4,118 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/logoNorTech-navbar.png";
 
 function Navbar() {
-  const { isAuthenticated, signout, datauserAuth } = useAuthStore();
+
+  const {
+    isAuthenticated,
+    signout,
+    datauserAuth,
+  } = useAuthStore();
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
+
     signout();
+
     localStorage.removeItem("user");
+
     navigate("/login");
   };
 
-  const userId = datauserAuth?.email;
-  const key = `carrito_${userId}`;
+  const userId =
+    datauserAuth?.email;
 
-  const data = JSON.parse(localStorage.getItem(key)) || [];
+  const key =
+    `carrito_${userId}`;
 
-  const cantidadTotal = data.reduce((acc, p) => acc + (p.cantidad || 1), 0);
+  const data =
+    JSON.parse(
+      localStorage.getItem(key)
+    ) || [];
+
+  const cantidadTotal =
+    data.reduce(
+      (acc, p) =>
+        acc + (p.cantidad || 1),
+      0
+    );
 
   return (
+
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+
       <div className="container">
-        <Link className="navbar-brand" to="/">
-          <img src={logo} alt="Logo" width="200" />
+
+        <Link
+          className="navbar-brand"
+          to="/"
+        >
+          <img
+            src={logo}
+            alt="Logo"
+            width="200"
+          />
         </Link>
 
         <div className="collapse navbar-collapse">
+
           <ul className="navbar-nav ms-auto">
+
             <li>
-              <Link className="nav-link" to="/">
+              <Link
+                className="nav-link"
+                to="/"
+              >
                 Inicio
               </Link>
             </li>
 
             <li>
-              <Link className="nav-link" to="/catalogo">
+              <Link
+                className="nav-link"
+                to="/catalogo"
+              >
                 Catálogo
               </Link>
             </li>
 
             {isAuthenticated && (
-              <li>
-                <Link className="nav-link" to="/carrito">
-                  Carrito ({cantidadTotal})
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link
+                    className="nav-link"
+                    to="/carrito"
+                  >
+                    Carrito ({cantidadTotal})
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    className="nav-link"
+                    to="/historial"
+                  >
+                    Historial
+                  </Link>
+                </li>
+              </>
             )}
 
             {isAuthenticated ? (
               <>
                 <li>
                   <span className="nav-link">
+
                     {datauserAuth
-                      ? `${datauserAuth.role === 1 ? "ADMIN" : "CLIENTE"}: ${datauserAuth.email}`
+                      ? `${datauserAuth.role === 1
+                        ? "ADMIN"
+                        : "CLIENTE"
+                      }: ${datauserAuth.email}`
                       : null}
+
                   </span>
                 </li>
+
                 <li>
                   <button
                     className="btn btn-link nav-link"
@@ -70,20 +128,31 @@ function Navbar() {
             ) : (
               <>
                 <li>
-                  <Link className="nav-link" to="/login">
+                  <Link
+                    className="nav-link"
+                    to="/login"
+                  >
                     Ingresar
                   </Link>
                 </li>
+
                 <li>
-                  <Link className="nav-link" to="/registro">
+                  <Link
+                    className="nav-link"
+                    to="/registro"
+                  >
                     Registrarse
                   </Link>
                 </li>
               </>
             )}
+
           </ul>
+
         </div>
+
       </div>
+
     </nav>
   );
 }
