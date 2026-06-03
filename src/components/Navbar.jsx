@@ -79,27 +79,41 @@ function Navbar() {
               </Link>
             </li>
 
-            {isAuthenticated && (
-              <>
-                <li>
-                  <Link
-                    className="nav-link"
-                    to="/carrito"
-                  >
-                    Carrito ({cantidadTotal})
-                  </Link>
-                </li>
+            <li>
+              <Link
+                className="nav-link"
+                to={
+                  datauserAuth?.role === 1
+                    ? "/reparaciones-clientes"
+                    : "/reparaciones"
+                }
+              >
+                Reparación
+              </Link>
+            </li>
 
-                <li>
-                  <Link
-                    className="nav-link"
-                    to="/historial"
-                  >
-                    Historial
-                  </Link>
-                </li>
-              </>
-            )}
+            {isAuthenticated &&
+              datauserAuth?.role !== 1 && (
+                <>
+                  <li>
+                    <Link
+                      className="nav-link"
+                      to="/carrito"
+                    >
+                      Carrito ({cantidadTotal})
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      className="nav-link"
+                      to="/historial"
+                    >
+                      Historial
+                    </Link>
+                  </li>
+                </>
+              )}
 
             {isAuthenticated ? (
               <>
@@ -110,7 +124,7 @@ function Navbar() {
                       ? `${datauserAuth.role === 1
                         ? "ADMIN"
                         : "CLIENTE"
-                      }: ${datauserAuth.email}`
+                      }: ${datauserAuth.username || datauserAuth.usuario || datauserAuth.user_metadata?.usuario}`
                       : null}
 
                   </span>

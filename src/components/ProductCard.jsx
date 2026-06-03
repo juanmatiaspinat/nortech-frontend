@@ -69,7 +69,8 @@ function ProductCard({
             }).format(precio_venta)}
           </p>
 
-          {localStorage.getItem("user") ? (
+          {localStorage.getItem("user") &&
+          datauserAuth?.role !== 1 ? (
             <button
               className="btn btn-primary btn-sm w-100"
               onClick={handleAddToCart}
