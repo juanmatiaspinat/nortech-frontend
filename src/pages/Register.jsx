@@ -16,9 +16,14 @@ function Register() {
     telefono: "",
   });
 
+  const [repetirContraseña, setRepetirContraseña] = useState("");
+
+  const [mostrarPassword, setMostrarPassword] = useState(false);
+  const [mostrarRepetirPassword, setMostrarRepetirPassword] = useState(false);
+
   useEffect(() => {
     cargarPerfiles();
-  }, []); // ← CORREGIDO
+  }, []); //
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +46,7 @@ function Register() {
     ];
 
     const algunCampoVacio = camposObligatorios.some(
-      (campo) => campo === "" || campo === null || campo === undefined
+      (campo) => campo === "" || campo === null || campo === undefined,
     );
 
     if (algunCampoVacio) {
@@ -75,7 +80,7 @@ function Register() {
 
     if (!dniValido || !telefonoValido) {
       alert(
-        "Los campos numéricos (DNI y Teléfono) deben contener solo números positivos."
+        "Los campos numéricos (DNI y Teléfono) deben contener solo números positivos.",
       );
       return;
     }
@@ -134,42 +139,127 @@ function Register() {
 
         <div className="mb-3">
           <label>Nombre</label>
-          <input type="text" name="nombre" className="form-control" value={formData.nombre} onChange={handleChange} />
+          <input
+            type="text"
+            name="nombre"
+            className="form-control"
+            value={formData.nombre}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="mb-3">
           <label>Apellido</label>
-          <input type="text" name="apellido" className="form-control" value={formData.apellido} onChange={handleChange} />
+          <input
+            type="text"
+            name="apellido"
+            className="form-control"
+            value={formData.apellido}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="mb-3">
           <label>Usuario</label>
-          <input type="text" name="usuario" className="form-control" value={formData.usuario} onChange={handleChange} />
+          <input
+            type="text"
+            name="usuario"
+            className="form-control"
+            value={formData.usuario}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="mb-3">
           <label>Contraseña</label>
-          <input type="password" name="contraseña" className="form-control" value={formData.contraseña} onChange={handleChange} />
+          <input
+            type="password"
+            name="contraseña"
+            className={`form-control ${repetirContraseña
+              ? formData.contraseña === repetirContraseña
+                ? "is-valid"
+                : "is-invalid"
+              : ""
+              }`}
+            value={formData.contraseña}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label>Repetir contraseña</label>
+
+          <input
+            type="password"
+            className={`form-control ${repetirContraseña
+              ? formData.contraseña === repetirContraseña
+                ? "is-valid"
+                : "is-invalid"
+              : ""
+              }`}
+            value={repetirContraseña}
+            onChange={(e) =>
+              setRepetirContraseña(e.target.value)
+            }
+          />
+
+          {repetirContraseña && (
+            <small
+              className={
+                formData.contraseña === repetirContraseña
+                  ? "text-success"
+                  : "text-danger"
+              }
+            >
+              {formData.contraseña === repetirContraseña
+                ? "✓ Las contraseñas coinciden"
+                : "✗ Las contraseñas no coinciden"}
+            </small>
+          )}
         </div>
 
         <div className="mb-3">
           <label>Email</label>
-          <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            value={formData.email}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="mb-3">
           <label>DNI</label>
-          <input type="number" name="dni" className="form-control" value={formData.dni} onChange={handleChange} />
+          <input
+            type="number"
+            name="dni"
+            className="form-control"
+            value={formData.dni}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="mb-3">
           <label>Fecha de Nacimiento</label>
-          <input type="date" name="fechaNacimiento" className="form-control" value={formData.fechaNacimiento} onChange={handleChange} />
+          <input
+            type="date"
+            name="fechaNacimiento"
+            className="form-control"
+            value={formData.fechaNacimiento}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="mb-3">
           <label>Teléfono</label>
-          <input type="text" name="telefono" className="form-control" value={formData.telefono} onChange={handleChange} />
+          <input
+            type="text"
+            name="telefono"
+            className="form-control"
+            value={formData.telefono}
+            onChange={handleChange}
+          />
         </div>
 
         <button className="btn btn-success btn-sm w-100" type="submit">

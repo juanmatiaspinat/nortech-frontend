@@ -76,8 +76,15 @@ function ReparacionesClientes() {
       });
 
       cargarReparaciones();
+      alert("Diagnóstico guardado con éxito");
     } catch (error) {
       console.log(error);
+
+      alert(
+        error?.response?.data?.error ||
+        error?.message ||
+        "Error al guardar el diagnóstico"
+      );
     }
   };
 
@@ -170,6 +177,8 @@ function ReparacionesClientes() {
                     className="form-control mb-2"
                     value={diagnosticos[r.id]?.diagnostico || ""}
                     disabled={!editable}
+                    minLength={4}
+                    maxLength={150}
                     onChange={(e) =>
                       setDiagnosticos({
                         ...diagnosticos,

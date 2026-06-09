@@ -215,6 +215,8 @@ function SolicitarReparacion() {
 
                         <textarea
                             className="form-control"
+                            minlength="4" 
+                            maxlength="150"
                             rows="5"
                             placeholder="Describa el problema a revisar/reparar..."
                             value={descripcion}

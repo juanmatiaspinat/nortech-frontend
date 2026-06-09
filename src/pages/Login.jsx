@@ -1,4 +1,4 @@
-import { useAuthStore } from "../store/AuthStore"; // Ajusta el path según tu estructura
+import { useAuthStore } from "../store/AuthStore";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom"; 
 import { useState } from "react";
@@ -21,7 +21,7 @@ function Login() {
     });
 
     if (response) {
-      navigate("/"); // Redirige al home o donde quieras
+      navigate("/");
     } else {
       setLoginError("Credenciales incorrectas");
     }

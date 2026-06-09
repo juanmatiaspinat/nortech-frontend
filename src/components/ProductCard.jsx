@@ -6,6 +6,7 @@ function ProductCard({
   nombre,
   precio_venta,
   imagen,
+  stock,
   isAdmin,
   onDelete,
 }) {
@@ -22,6 +23,10 @@ function ProductCard({
   };
 
   const handleAddToCart = () => {
+    if (stock <= 0) {
+      alert("No hay stock disponible para este producto");
+      return;
+    }
     const userId = datauserAuth?.email;
     const key = `carrito_${userId}`;
 
@@ -33,7 +38,9 @@ function ProductCard({
 
     if (existe) {
       nuevoCarrito = carrito.map((p) =>
-        p.id === id_producto ? { ...p, cantidad: (p.cantidad || 1) + 1 } : p,
+        p.id === id_producto
+          ? { ...p, cantidad: (p.cantidad || 1) + 1 }
+          : p,
       );
     } else {
       nuevoCarrito = [
@@ -43,12 +50,16 @@ function ProductCard({
           nombre,
           precio_venta,
           imagen,
+          stock,
           cantidad: 1,
         },
       ];
     }
 
-    localStorage.setItem(key, JSON.stringify(nuevoCarrito));
+    localStorage.setItem(
+      key,
+      JSON.stringify(nuevoCarrito),
+    );
 
     alert(`"${nombre}" agregado al carrito`);
     window.location.reload();
@@ -57,10 +68,18 @@ function ProductCard({
   return (
     <div className="col-md-2 mb-2">
       <div className="card h-100">
-        <img src={imagen} className="card-img-top" alt={nombre} />
+        <img
+          src={imagen}
+          className="card-img-top"
+          alt={nombre}
+        />
 
         <div className="card-body d-flex flex-column">
           <h5>{nombre}</h5>
+
+          <p className="mb-1">
+            <strong>Stock:</strong> {stock}
+          </p>
 
           <p>
             {new Intl.NumberFormat("es-AR", {
@@ -70,7 +89,7 @@ function ProductCard({
           </p>
 
           {localStorage.getItem("user") &&
-          datauserAuth?.role !== 1 ? (
+            datauserAuth?.role !== 1 ? (
             <button
               className="btn btn-primary btn-sm w-100"
               onClick={handleAddToCart}

@@ -6,9 +6,8 @@ import { FaMobileAlt, FaTools, FaHeadphones, FaHandshake } from 'react-icons/fa'
 function Home() {
     return (
         <div className={styles.homeContainer}>
-            {/* SECCION HERO*/}
             <header className={styles.heroSection}>
-                <div className={styles.heroOverlay}></div> {/* Capa para oscurecer la imagen y que el texto resalte */}
+                <div className={styles.heroOverlay}></div>
                 <div className={styles.heroText}>
                     <h1>¡Bienvenidos a NorTech!</h1>
                     <p className={styles.subtitle}>
@@ -20,7 +19,6 @@ function Home() {
                 </div>
             </header>
 
-            {/* SECCIÓN DE CARACTERISTICAS/SERVICIOS */}
             <section className={styles.featuresSection}>
                 <h2>¿Qué te ofrecemos en NorTech?</h2>
                 <div className={styles.featuresGrid}>
@@ -42,15 +40,14 @@ function Home() {
                 </div>
             </section>
 
-             {/* SECCION DE CIERRE */}
-             <section className={styles.closingSection}>
+            <section className={styles.closingSection}>
                 <h2>Comprometidos con vos</h2>
                 <p>
                     En NorTech creemos que la tecnología debe mejorar tu vida. Por eso nos comprometemos a brindarte excelentes precios, atención personalizada y servicio postventa confiable.
-                    <br/><br/>
+                    <br /><br />
                     <strong>¡Gracias por confiar en nosotros! Tu próximo celular te está esperando.</strong>
                 </p>
-             </section>
+            </section>
         </div>
     );
 }
