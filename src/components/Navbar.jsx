@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logoNorTech-navbar.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Navbar() {
 
@@ -50,14 +52,25 @@ function Navbar() {
           className="navbar-brand"
           to="/"
         >
+          
           <img
             src={logo}
             alt="Logo"
             width="200"
           />
         </Link>
-
-        <div className="collapse navbar-collapse">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div
+  className="collapse navbar-collapse"
+  id="navbarContent"
+>
 
           <ul className="navbar-nav ms-auto">
 
