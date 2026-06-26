@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import {
-  obtenerTodasReparaciones,
+  obtenerReparaciones,
   actualizarEstado,
   actualizarDiagnostico,
 } from "../models/crudReparaciones";
@@ -21,7 +21,7 @@ function ReparacionesClientes() {
 
   const cargarReparaciones = async () => {
     try {
-      const response = await obtenerTodasReparaciones(token);
+      const response = await obtenerReparaciones(token);
 
       setReparaciones(response.reparaciones);
 

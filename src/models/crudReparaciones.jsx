@@ -22,7 +22,7 @@ export const obtenerMisReparaciones = async (token) => {
   return response.data;
 };
 
-export const obtenerTodasReparaciones = async (token) => {
+export const obtenerReparaciones = async (token) => {
   const response = await axios.get(`${API_URL}/todas`, {
     headers: {
       Authorization: `Bearer ${token}`,

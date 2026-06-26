@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { MostrarProductos } from "../models/crudProductos";
+import { obtenerProductos } from "../models/crudProductos";
 
 import { crearReparacion } from "../models/crudReparaciones";
 
@@ -39,7 +39,7 @@ function SolicitarReparacion() {
             try {
 
                 const response =
-                    await MostrarProductos();
+                    await obtenerProductos();
 
                 setProductos(response);
 

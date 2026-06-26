@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { CrearVenta } from "../models/crudVentas";
+import { crearVenta } from "../models/crudVentas";
 
 export default function Pago() {
 
@@ -51,7 +51,7 @@ export default function Pago() {
 
       console.log("DATA ENVIADA:", data);
 
-      await CrearVenta(data, token);
+      await crearVenta(data, token);
 
       const key = `carrito_${user.email}`;
 

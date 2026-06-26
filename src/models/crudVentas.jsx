@@ -4,7 +4,7 @@ import {
     API_URL_VENTAS,
 } from "../api/conexiones";
 
-export async function CrearVenta(
+export async function crearVenta(
     data,
     token
 ) {
@@ -24,7 +24,7 @@ export async function CrearVenta(
     return response.data;
 }
 
-export async function ObtenerHistorialVentas(
+export async function obtenerHistorialVentas(
     idusuario,
     token
 ) {

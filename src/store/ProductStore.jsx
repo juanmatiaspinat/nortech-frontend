@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import {
-  MostrarProductos,
-  CrearProducto,
-  ObtenerCategorias,
-  ObtenerMarcas,
+  obtenerProductos,
+  crearProducto,
+  obtenerCategorias,
+  obtenerMarcas,
   obtenerProductoPorId,
   actualizarProducto,
   eliminarProducto,
@@ -13,8 +13,8 @@ import { useAuthStore } from "./AuthStore";
 export const useProductosStore = create((set) => ({
   dataproductos: [],
 
-  mostrarProductos: async () => {
-    const response = await MostrarProductos();
+  obtenerProductos: async () => {
+    const response = await obtenerProductos();
     set({ dataproductos: response });
     return response;
   },
@@ -24,7 +24,7 @@ export const useProductosStore = create((set) => ({
     const token =
       useAuthStore.getState().token || localStorage.getItem("token");
 
-    const response = await CrearProducto(producto, token);
+    const response = await crearProducto(producto, token);
 
     set((state) => ({
       dataproductos: [...state.dataproductos, response],
@@ -33,13 +33,13 @@ export const useProductosStore = create((set) => ({
     return response;
   },
 
-  ObtenerCategorias: async () => {
-    const response = await ObtenerCategorias();
+  obtenerCategorias: async () => {
+    const response = await obtenerCategorias();
     return response;
   },
 
-  ObtenerMarcas: async () => {
-    const response = await ObtenerMarcas();
+  obtenerMarcas: async () => {
+    const response = await obtenerMarcas();
     return response;
   },
 

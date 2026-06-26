@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 function Catalogo() {
   const { isAuthenticated, datauserAuth } = useAuthStore();
 
-  const { dataproductos, mostrarProductos, eliminarProducto } =
+  const { dataproductos, obtenerProductos, eliminarProducto } =
     useProductosStore();
 
   useEffect(() => {
-    mostrarProductos();
-  }, [mostrarProductos]);
+    obtenerProductos();
+  }, [obtenerProductos]);
 
   const handleAddToCart = (producto) => {
     // VALIDACIÓN DE STOCK
@@ -45,7 +45,7 @@ function Catalogo() {
   return (
     <div>
       <div className="d-flex align-items-center gap-3 mbñ-3">
-        <h2 className="m-0">Catálogo de Productos</h2>
+        <h2 className="m-2">Catálogo de Productos</h2>
 
         {isAuthenticated && datauserAuth?.role === 1 && (
           <Link to="/admin/cargar-producto" className="btn btn-primary btn-sm">

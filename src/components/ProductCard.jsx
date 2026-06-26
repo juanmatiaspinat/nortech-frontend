@@ -66,7 +66,7 @@ function ProductCard({
   };
 
   return (
-    <div className="col-md-2 mb-2">
+    <div className="mb-2" style={{ width: "220px" }}>
       <div className="card h-100">
         <img
           src={imagen}

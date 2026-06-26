@@ -9,8 +9,8 @@ function CargarProducto() {
 
   const {
     crearProducto,
-    ObtenerCategorias,
-    ObtenerMarcas,
+    obtenerCategorias,
+    obtenerMarcas,
     obtenerProductoPorId,
     actualizarProducto,
   } = useProductosStore();
@@ -38,7 +38,7 @@ function CargarProducto() {
   useEffect(() => {
     const obtenerCategorias = async () => {
       try {
-        const response = await ObtenerCategorias();
+        const response = await obtenerCategorias();
         setCategorias(response.data);
       } catch (error) {
         console.error("Error al obtener categorías:", error);
@@ -47,7 +47,7 @@ function CargarProducto() {
 
     const obtenerMarcas = async () => {
       try {
-        const response = await ObtenerMarcas();
+        const response = await obtenerMarcas();
         setMarcas(response.data);
       } catch (error) {
         console.error("Error al obtener marcas:", error);
@@ -56,7 +56,7 @@ function CargarProducto() {
 
     obtenerCategorias();
     obtenerMarcas();
-  }, [ObtenerCategorias, ObtenerMarcas]);
+  }, [obtenerCategorias, obtenerMarcas]);
 
   useEffect(() => {
     if (isEditMode && idProducto) {
